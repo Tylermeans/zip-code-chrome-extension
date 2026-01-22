@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "US Zip Code Finder",
-  "version": "1.0.0",
-  "description": "Search for zip codes by city/state or find cities by zip code. Supports all 41,000+ US zip codes.",
+  "version": "1.1.0",
+  "description": "Search for zip codes by city/state or find cities by zip code. Complete database with all 42,366 US zip codes.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

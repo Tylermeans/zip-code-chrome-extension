@@ -1,6 +1,6 @@
 # US Zip Code Finder - Chrome Extension
 
-A fast and easy-to-use Chrome extension for searching US zip codes. Search by city/state to find zip codes, or search by zip code to find cities. Supports all 41,000+ US zip codes.
+A fast and easy-to-use Chrome extension for searching US zip codes. Search by city/state to find zip codes, or search by zip code to find cities. Includes complete database of all 42,366 US zip codes.
 
 ## Features
 
@@ -42,18 +42,34 @@ A fast and easy-to-use Chrome extension for searching US zip codes. Search by ci
 
 ## Data Source
 
-The extension includes a sample dataset for demonstration purposes. For production use with the complete database of 41,000+ zip codes:
+This extension includes the **complete US zip code database** with all **42,366 zip codes** from the open source [midwire/free_zipcode_data](https://github.com/midwire/free_zipcode_data) repository.
 
-### Option 1: Download Complete Database
+The data is sourced from GeoNames and is licensed under Creative Commons, making it free to use for any purpose.
 
-Download a complete US zip code database from:
-- [SimpleMaps US Zip Codes](https://simplemaps.com/data/us-zips) (Free basic version available)
-- [United States Zip Codes](https://www.unitedstateszipcodes.org/)
-- USPS Official Database
+### Database Statistics
 
-### Option 2: Format Your Own Data
+- **Total zip codes**: 42,366
+- **Unique cities**: 18,909
+- **States covered**: All 51 (50 states + DC)
+- **Data includes**: City, state, state abbreviation, county
 
-Replace `zipcodes.json` with your data in this format:
+### Updating the Database
+
+To update the database with the latest data from the source:
+
+```bash
+# Clone the free_zipcode_data repository
+cd /tmp
+git clone https://github.com/midwire/free_zipcode_data.git
+
+# Run the conversion script
+cd /path/to/zip-code-chrome-extension
+python3 convert_zipcode_data.py
+```
+
+### Data Format
+
+The `zipcodes.json` file uses this format:
 
 ```json
 [
@@ -74,14 +90,6 @@ Replace `zipcodes.json` with your data in this format:
 ]
 ```
 
-### Regenerate Sample Data
-
-To regenerate the sample data:
-
-```bash
-python3 generate_zipcode_data.py
-```
-
 ## Project Structure
 
 ```
@@ -90,13 +98,16 @@ zip-code-chrome-extension/
 ├── popup.html                 # Extension popup UI
 ├── popup.js                   # Search logic and functionality
 ├── styles.css                 # Styling for the popup
-├── zipcodes.json             # Zip code database
-├── generate_zipcode_data.py  # Script to generate sample data
+├── zipcodes.json              # Complete zip code database (42,366 entries)
+├── convert_zipcode_data.py    # Script to convert midwire data to JSON
+├── generate_zipcode_data.py   # Script to generate sample data (legacy)
+├── generate_icons.py          # Script to generate extension icons
 ├── icons/                     # Extension icons
 │   ├── icon16.png
 │   ├── icon32.png
 │   ├── icon48.png
-│   └── icon128.png
+│   ├── icon128.png
+│   └── icon.svg
 └── README.md                  # This file
 ```
 
@@ -120,8 +131,9 @@ zip-code-chrome-extension/
 
 - **Manifest Version**: 3 (latest Chrome extension standard)
 - **Permissions**: None required (fully offline)
-- **Size**: ~100KB with sample data, ~2-3MB with complete dataset
-- **Performance**: Instant search results (all data in memory)
+- **Database Size**: 5.2MB (complete dataset with 42,366 zip codes)
+- **Performance**: Instant search results (all data loaded in memory)
+- **Data Source**: [midwire/free_zipcode_data](https://github.com/midwire/free_zipcode_data) (GeoNames, Creative Commons)
 
 ## Browser Compatibility
 
@@ -163,6 +175,13 @@ MIT License - Feel free to use and modify as needed.
 For issues, questions, or suggestions, please open an issue on GitHub.
 
 ## Changelog
+
+### Version 1.1.0 (Complete Database Update)
+- Integrated complete US zip code database (42,366 zip codes)
+- Data sourced from open source midwire/free_zipcode_data repository
+- All 51 states/territories covered (50 states + DC)
+- 18,909 unique cities included
+- Added conversion script for easy database updates
 
 ### Version 1.0.0 (Initial Release)
 - Bidirectional zip code search (city ↔ zip)

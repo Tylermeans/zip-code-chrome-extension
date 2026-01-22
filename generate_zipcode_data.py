@@ -1,0 +1,378 @@
+#!/usr/bin/env python3
+"""
+Script to generate a comprehensive US zip code database.
+This creates a sample dataset. For production use, replace with official USPS data.
+"""
+
+import json
+
+# Comprehensive sample of major US cities and their zip codes
+# In production, this should be replaced with the complete USPS zip code database
+zipcode_data = [
+    # New York
+    {"zip": "10001", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10002", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10003", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10004", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10005", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10006", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10007", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10009", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10010", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10011", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10012", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10013", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10014", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10016", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10017", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10018", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10019", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10020", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10021", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10022", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10023", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10024", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10025", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10026", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10027", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10028", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10029", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10030", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10031", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10032", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10033", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10034", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10035", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10036", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10037", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10038", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10039", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+    {"zip": "10040", "city": "New York", "state": "New York", "state_abbr": "NY", "county": "New York"},
+
+    # Los Angeles
+    {"zip": "90001", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90002", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90003", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90004", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90005", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90006", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90007", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90008", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90010", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90011", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90012", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90013", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90014", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90015", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90016", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90017", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90018", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90019", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+    {"zip": "90020", "city": "Los Angeles", "state": "California", "state_abbr": "CA", "county": "Los Angeles"},
+
+    # Chicago
+    {"zip": "60601", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60602", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60603", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60604", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60605", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60606", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60607", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60608", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60609", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+    {"zip": "60610", "city": "Chicago", "state": "Illinois", "state_abbr": "IL", "county": "Cook"},
+
+    # Houston
+    {"zip": "77001", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77002", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77003", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77004", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77005", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77006", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77007", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77008", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77009", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+    {"zip": "77010", "city": "Houston", "state": "Texas", "state_abbr": "TX", "county": "Harris"},
+
+    # Phoenix
+    {"zip": "85001", "city": "Phoenix", "state": "Arizona", "state_abbr": "AZ", "county": "Maricopa"},
+    {"zip": "85002", "city": "Phoenix", "state": "Arizona", "state_abbr": "AZ", "county": "Maricopa"},
+    {"zip": "85003", "city": "Phoenix", "state": "Arizona", "state_abbr": "AZ", "county": "Maricopa"},
+    {"zip": "85004", "city": "Phoenix", "state": "Arizona", "state_abbr": "AZ", "county": "Maricopa"},
+    {"zip": "85005", "city": "Phoenix", "state": "Arizona", "state_abbr": "AZ", "county": "Maricopa"},
+
+    # Philadelphia
+    {"zip": "19019", "city": "Philadelphia", "state": "Pennsylvania", "state_abbr": "PA", "county": "Philadelphia"},
+    {"zip": "19101", "city": "Philadelphia", "state": "Pennsylvania", "state_abbr": "PA", "county": "Philadelphia"},
+    {"zip": "19102", "city": "Philadelphia", "state": "Pennsylvania", "state_abbr": "PA", "county": "Philadelphia"},
+    {"zip": "19103", "city": "Philadelphia", "state": "Pennsylvania", "state_abbr": "PA", "county": "Philadelphia"},
+    {"zip": "19104", "city": "Philadelphia", "state": "Pennsylvania", "state_abbr": "PA", "county": "Philadelphia"},
+
+    # San Antonio
+    {"zip": "78201", "city": "San Antonio", "state": "Texas", "state_abbr": "TX", "county": "Bexar"},
+    {"zip": "78202", "city": "San Antonio", "state": "Texas", "state_abbr": "TX", "county": "Bexar"},
+    {"zip": "78203", "city": "San Antonio", "state": "Texas", "state_abbr": "TX", "county": "Bexar"},
+    {"zip": "78204", "city": "San Antonio", "state": "Texas", "state_abbr": "TX", "county": "Bexar"},
+    {"zip": "78205", "city": "San Antonio", "state": "Texas", "state_abbr": "TX", "county": "Bexar"},
+
+    # San Diego
+    {"zip": "92101", "city": "San Diego", "state": "California", "state_abbr": "CA", "county": "San Diego"},
+    {"zip": "92102", "city": "San Diego", "state": "California", "state_abbr": "CA", "county": "San Diego"},
+    {"zip": "92103", "city": "San Diego", "state": "California", "state_abbr": "CA", "county": "San Diego"},
+    {"zip": "92104", "city": "San Diego", "state": "California", "state_abbr": "CA", "county": "San Diego"},
+    {"zip": "92105", "city": "San Diego", "state": "California", "state_abbr": "CA", "county": "San Diego"},
+
+    # Dallas
+    {"zip": "75201", "city": "Dallas", "state": "Texas", "state_abbr": "TX", "county": "Dallas"},
+    {"zip": "75202", "city": "Dallas", "state": "Texas", "state_abbr": "TX", "county": "Dallas"},
+    {"zip": "75203", "city": "Dallas", "state": "Texas", "state_abbr": "TX", "county": "Dallas"},
+    {"zip": "75204", "city": "Dallas", "state": "Texas", "state_abbr": "TX", "county": "Dallas"},
+    {"zip": "75205", "city": "Dallas", "state": "Texas", "state_abbr": "TX", "county": "Dallas"},
+
+    # San Jose
+    {"zip": "95101", "city": "San Jose", "state": "California", "state_abbr": "CA", "county": "Santa Clara"},
+    {"zip": "95102", "city": "San Jose", "state": "California", "state_abbr": "CA", "county": "Santa Clara"},
+    {"zip": "95103", "city": "San Jose", "state": "California", "state_abbr": "CA", "county": "Santa Clara"},
+    {"zip": "95110", "city": "San Jose", "state": "California", "state_abbr": "CA", "county": "Santa Clara"},
+    {"zip": "95111", "city": "San Jose", "state": "California", "state_abbr": "CA", "county": "Santa Clara"},
+
+    # Austin
+    {"zip": "78701", "city": "Austin", "state": "Texas", "state_abbr": "TX", "county": "Travis"},
+    {"zip": "78702", "city": "Austin", "state": "Texas", "state_abbr": "TX", "county": "Travis"},
+    {"zip": "78703", "city": "Austin", "state": "Texas", "state_abbr": "TX", "county": "Travis"},
+    {"zip": "78704", "city": "Austin", "state": "Texas", "state_abbr": "TX", "county": "Travis"},
+    {"zip": "78705", "city": "Austin", "state": "Texas", "state_abbr": "TX", "county": "Travis"},
+
+    # Jacksonville
+    {"zip": "32099", "city": "Jacksonville", "state": "Florida", "state_abbr": "FL", "county": "Duval"},
+    {"zip": "32201", "city": "Jacksonville", "state": "Florida", "state_abbr": "FL", "county": "Duval"},
+    {"zip": "32202", "city": "Jacksonville", "state": "Florida", "state_abbr": "FL", "county": "Duval"},
+    {"zip": "32203", "city": "Jacksonville", "state": "Florida", "state_abbr": "FL", "county": "Duval"},
+    {"zip": "32204", "city": "Jacksonville", "state": "Florida", "state_abbr": "FL", "county": "Duval"},
+
+    # Fort Worth
+    {"zip": "76101", "city": "Fort Worth", "state": "Texas", "state_abbr": "TX", "county": "Tarrant"},
+    {"zip": "76102", "city": "Fort Worth", "state": "Texas", "state_abbr": "TX", "county": "Tarrant"},
+    {"zip": "76103", "city": "Fort Worth", "state": "Texas", "state_abbr": "TX", "county": "Tarrant"},
+    {"zip": "76104", "city": "Fort Worth", "state": "Texas", "state_abbr": "TX", "county": "Tarrant"},
+    {"zip": "76105", "city": "Fort Worth", "state": "Texas", "state_abbr": "TX", "county": "Tarrant"},
+
+    # Columbus
+    {"zip": "43001", "city": "Columbus", "state": "Ohio", "state_abbr": "OH", "county": "Franklin"},
+    {"zip": "43002", "city": "Columbus", "state": "Ohio", "state_abbr": "OH", "county": "Delaware"},
+    {"zip": "43004", "city": "Columbus", "state": "Ohio", "state_abbr": "OH", "county": "Franklin"},
+    {"zip": "43201", "city": "Columbus", "state": "Ohio", "state_abbr": "OH", "county": "Franklin"},
+    {"zip": "43202", "city": "Columbus", "state": "Ohio", "state_abbr": "OH", "county": "Franklin"},
+
+    # Charlotte
+    {"zip": "28201", "city": "Charlotte", "state": "North Carolina", "state_abbr": "NC", "county": "Mecklenburg"},
+    {"zip": "28202", "city": "Charlotte", "state": "North Carolina", "state_abbr": "NC", "county": "Mecklenburg"},
+    {"zip": "28203", "city": "Charlotte", "state": "North Carolina", "state_abbr": "NC", "county": "Mecklenburg"},
+    {"zip": "28204", "city": "Charlotte", "state": "North Carolina", "state_abbr": "NC", "county": "Mecklenburg"},
+    {"zip": "28205", "city": "Charlotte", "state": "North Carolina", "state_abbr": "NC", "county": "Mecklenburg"},
+
+    # San Francisco
+    {"zip": "94102", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94103", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94104", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94105", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94107", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94108", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94109", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94110", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94111", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+    {"zip": "94112", "city": "San Francisco", "state": "California", "state_abbr": "CA", "county": "San Francisco"},
+
+    # Indianapolis
+    {"zip": "46201", "city": "Indianapolis", "state": "Indiana", "state_abbr": "IN", "county": "Marion"},
+    {"zip": "46202", "city": "Indianapolis", "state": "Indiana", "state_abbr": "IN", "county": "Marion"},
+    {"zip": "46203", "city": "Indianapolis", "state": "Indiana", "state_abbr": "IN", "county": "Marion"},
+    {"zip": "46204", "city": "Indianapolis", "state": "Indiana", "state_abbr": "IN", "county": "Marion"},
+    {"zip": "46205", "city": "Indianapolis", "state": "Indiana", "state_abbr": "IN", "county": "Marion"},
+
+    # Seattle
+    {"zip": "98101", "city": "Seattle", "state": "Washington", "state_abbr": "WA", "county": "King"},
+    {"zip": "98102", "city": "Seattle", "state": "Washington", "state_abbr": "WA", "county": "King"},
+    {"zip": "98103", "city": "Seattle", "state": "Washington", "state_abbr": "WA", "county": "King"},
+    {"zip": "98104", "city": "Seattle", "state": "Washington", "state_abbr": "WA", "county": "King"},
+    {"zip": "98105", "city": "Seattle", "state": "Washington", "state_abbr": "WA", "county": "King"},
+
+    # Denver
+    {"zip": "80201", "city": "Denver", "state": "Colorado", "state_abbr": "CO", "county": "Denver"},
+    {"zip": "80202", "city": "Denver", "state": "Colorado", "state_abbr": "CO", "county": "Denver"},
+    {"zip": "80203", "city": "Denver", "state": "Colorado", "state_abbr": "CO", "county": "Denver"},
+    {"zip": "80204", "city": "Denver", "state": "Colorado", "state_abbr": "CO", "county": "Denver"},
+    {"zip": "80205", "city": "Denver", "state": "Colorado", "state_abbr": "CO", "county": "Denver"},
+
+    # Washington DC
+    {"zip": "20001", "city": "Washington", "state": "District of Columbia", "state_abbr": "DC", "county": "District of Columbia"},
+    {"zip": "20002", "city": "Washington", "state": "District of Columbia", "state_abbr": "DC", "county": "District of Columbia"},
+    {"zip": "20003", "city": "Washington", "state": "District of Columbia", "state_abbr": "DC", "county": "District of Columbia"},
+    {"zip": "20004", "city": "Washington", "state": "District of Columbia", "state_abbr": "DC", "county": "District of Columbia"},
+    {"zip": "20005", "city": "Washington", "state": "District of Columbia", "state_abbr": "DC", "county": "District of Columbia"},
+
+    # Boston
+    {"zip": "02108", "city": "Boston", "state": "Massachusetts", "state_abbr": "MA", "county": "Suffolk"},
+    {"zip": "02109", "city": "Boston", "state": "Massachusetts", "state_abbr": "MA", "county": "Suffolk"},
+    {"zip": "02110", "city": "Boston", "state": "Massachusetts", "state_abbr": "MA", "county": "Suffolk"},
+    {"zip": "02111", "city": "Boston", "state": "Massachusetts", "state_abbr": "MA", "county": "Suffolk"},
+    {"zip": "02113", "city": "Boston", "state": "Massachusetts", "state_abbr": "MA", "county": "Suffolk"},
+
+    # Nashville
+    {"zip": "37201", "city": "Nashville", "state": "Tennessee", "state_abbr": "TN", "county": "Davidson"},
+    {"zip": "37202", "city": "Nashville", "state": "Tennessee", "state_abbr": "TN", "county": "Davidson"},
+    {"zip": "37203", "city": "Nashville", "state": "Tennessee", "state_abbr": "TN", "county": "Davidson"},
+    {"zip": "37204", "city": "Nashville", "state": "Tennessee", "state_abbr": "TN", "county": "Davidson"},
+    {"zip": "37205", "city": "Nashville", "state": "Tennessee", "state_abbr": "TN", "county": "Davidson"},
+
+    # Detroit
+    {"zip": "48201", "city": "Detroit", "state": "Michigan", "state_abbr": "MI", "county": "Wayne"},
+    {"zip": "48202", "city": "Detroit", "state": "Michigan", "state_abbr": "MI", "county": "Wayne"},
+    {"zip": "48203", "city": "Detroit", "state": "Michigan", "state_abbr": "MI", "county": "Wayne"},
+    {"zip": "48204", "city": "Detroit", "state": "Michigan", "state_abbr": "MI", "county": "Wayne"},
+    {"zip": "48205", "city": "Detroit", "state": "Michigan", "state_abbr": "MI", "county": "Wayne"},
+
+    # Portland
+    {"zip": "97201", "city": "Portland", "state": "Oregon", "state_abbr": "OR", "county": "Multnomah"},
+    {"zip": "97202", "city": "Portland", "state": "Oregon", "state_abbr": "OR", "county": "Multnomah"},
+    {"zip": "97203", "city": "Portland", "state": "Oregon", "state_abbr": "OR", "county": "Multnomah"},
+    {"zip": "97204", "city": "Portland", "state": "Oregon", "state_abbr": "OR", "county": "Multnomah"},
+    {"zip": "97205", "city": "Portland", "state": "Oregon", "state_abbr": "OR", "county": "Multnomah"},
+
+    # Las Vegas
+    {"zip": "89101", "city": "Las Vegas", "state": "Nevada", "state_abbr": "NV", "county": "Clark"},
+    {"zip": "89102", "city": "Las Vegas", "state": "Nevada", "state_abbr": "NV", "county": "Clark"},
+    {"zip": "89103", "city": "Las Vegas", "state": "Nevada", "state_abbr": "NV", "county": "Clark"},
+    {"zip": "89104", "city": "Las Vegas", "state": "Nevada", "state_abbr": "NV", "county": "Clark"},
+    {"zip": "89105", "city": "Las Vegas", "state": "Nevada", "state_abbr": "NV", "county": "Clark"},
+
+    # Miami
+    {"zip": "33101", "city": "Miami", "state": "Florida", "state_abbr": "FL", "county": "Miami-Dade"},
+    {"zip": "33125", "city": "Miami", "state": "Florida", "state_abbr": "FL", "county": "Miami-Dade"},
+    {"zip": "33126", "city": "Miami", "state": "Florida", "state_abbr": "FL", "county": "Miami-Dade"},
+    {"zip": "33127", "city": "Miami", "state": "Florida", "state_abbr": "FL", "county": "Miami-Dade"},
+    {"zip": "33128", "city": "Miami", "state": "Florida", "state_abbr": "FL", "county": "Miami-Dade"},
+
+    # Atlanta
+    {"zip": "30301", "city": "Atlanta", "state": "Georgia", "state_abbr": "GA", "county": "Fulton"},
+    {"zip": "30302", "city": "Atlanta", "state": "Georgia", "state_abbr": "GA", "county": "Fulton"},
+    {"zip": "30303", "city": "Atlanta", "state": "Georgia", "state_abbr": "GA", "county": "Fulton"},
+    {"zip": "30304", "city": "Atlanta", "state": "Georgia", "state_abbr": "GA", "county": "Fulton"},
+    {"zip": "30305", "city": "Atlanta", "state": "Georgia", "state_abbr": "GA", "county": "Fulton"},
+
+    # More cities across all states for comprehensive coverage
+    # Alabama
+    {"zip": "35801", "city": "Huntsville", "state": "Alabama", "state_abbr": "AL", "county": "Madison"},
+    {"zip": "35203", "city": "Birmingham", "state": "Alabama", "state_abbr": "AL", "county": "Jefferson"},
+    {"zip": "36101", "city": "Montgomery", "state": "Alabama", "state_abbr": "AL", "county": "Montgomery"},
+
+    # Alaska
+    {"zip": "99501", "city": "Anchorage", "state": "Alaska", "state_abbr": "AK", "county": "Anchorage"},
+    {"zip": "99801", "city": "Juneau", "state": "Alaska", "state_abbr": "AK", "county": "Juneau"},
+
+    # Arkansas
+    {"zip": "72201", "city": "Little Rock", "state": "Arkansas", "state_abbr": "AR", "county": "Pulaski"},
+
+    # Connecticut
+    {"zip": "06101", "city": "Hartford", "state": "Connecticut", "state_abbr": "CT", "county": "Hartford"},
+
+    # Delaware
+    {"zip": "19801", "city": "Wilmington", "state": "Delaware", "state_abbr": "DE", "county": "New Castle"},
+
+    # Hawaii
+    {"zip": "96801", "city": "Honolulu", "state": "Hawaii", "state_abbr": "HI", "county": "Honolulu"},
+
+    # Idaho
+    {"zip": "83701", "city": "Boise", "state": "Idaho", "state_abbr": "ID", "county": "Ada"},
+
+    # Iowa
+    {"zip": "50301", "city": "Des Moines", "state": "Iowa", "state_abbr": "IA", "county": "Polk"},
+
+    # Kansas
+    {"zip": "67201", "city": "Wichita", "state": "Kansas", "state_abbr": "KS", "county": "Sedgwick"},
+
+    # Kentucky
+    {"zip": "40201", "city": "Louisville", "state": "Kentucky", "state_abbr": "KY", "county": "Jefferson"},
+
+    # Louisiana
+    {"zip": "70112", "city": "New Orleans", "state": "Louisiana", "state_abbr": "LA", "county": "Orleans"},
+
+    # Maine
+    {"zip": "04101", "city": "Portland", "state": "Maine", "state_abbr": "ME", "county": "Cumberland"},
+
+    # Maryland
+    {"zip": "21201", "city": "Baltimore", "state": "Maryland", "state_abbr": "MD", "county": "Baltimore City"},
+
+    # Minnesota
+    {"zip": "55401", "city": "Minneapolis", "state": "Minnesota", "state_abbr": "MN", "county": "Hennepin"},
+
+    # Mississippi
+    {"zip": "39201", "city": "Jackson", "state": "Mississippi", "state_abbr": "MS", "county": "Hinds"},
+
+    # Missouri
+    {"zip": "63101", "city": "St Louis", "state": "Missouri", "state_abbr": "MO", "county": "St Louis City"},
+
+    # Montana
+    {"zip": "59101", "city": "Billings", "state": "Montana", "state_abbr": "MT", "county": "Yellowstone"},
+
+    # Nebraska
+    {"zip": "68101", "city": "Omaha", "state": "Nebraska", "state_abbr": "NE", "county": "Douglas"},
+
+    # New Hampshire
+    {"zip": "03101", "city": "Manchester", "state": "New Hampshire", "state_abbr": "NH", "county": "Hillsborough"},
+
+    # New Jersey
+    {"zip": "07101", "city": "Newark", "state": "New Jersey", "state_abbr": "NJ", "county": "Essex"},
+
+    # New Mexico
+    {"zip": "87101", "city": "Albuquerque", "state": "New Mexico", "state_abbr": "NM", "county": "Bernalillo"},
+
+    # North Dakota
+    {"zip": "58501", "city": "Bismarck", "state": "North Dakota", "state_abbr": "ND", "county": "Burleigh"},
+
+    # Oklahoma
+    {"zip": "73101", "city": "Oklahoma City", "state": "Oklahoma", "state_abbr": "OK", "county": "Oklahoma"},
+
+    # Rhode Island
+    {"zip": "02901", "city": "Providence", "state": "Rhode Island", "state_abbr": "RI", "county": "Providence"},
+
+    # South Carolina
+    {"zip": "29201", "city": "Columbia", "state": "South Carolina", "state_abbr": "SC", "county": "Richland"},
+
+    # South Dakota
+    {"zip": "57101", "city": "Sioux Falls", "state": "South Dakota", "state_abbr": "SD", "county": "Minnehaha"},
+
+    # Utah
+    {"zip": "84101", "city": "Salt Lake City", "state": "Utah", "state_abbr": "UT", "county": "Salt Lake"},
+
+    # Vermont
+    {"zip": "05401", "city": "Burlington", "state": "Vermont", "state_abbr": "VT", "county": "Chittenden"},
+
+    # Virginia
+    {"zip": "23219", "city": "Richmond", "state": "Virginia", "state_abbr": "VA", "county": "Richmond City"},
+
+    # West Virginia
+    {"zip": "25301", "city": "Charleston", "state": "West Virginia", "state_abbr": "WV", "county": "Kanawha"},
+
+    # Wisconsin
+    {"zip": "53201", "city": "Milwaukee", "state": "Wisconsin", "state_abbr": "WI", "county": "Milwaukee"},
+
+    # Wyoming
+    {"zip": "82001", "city": "Cheyenne", "state": "Wyoming", "state_abbr": "WY", "county": "Laramie"},
+]
+
+def main():
+    # Write to JSON file
+    with open('zipcodes.json', 'w', encoding='utf-8') as f:
+        json.dump(zipcode_data, f, indent=2, ensure_ascii=False)
+
+    print(f"Generated zipcodes.json with {len(zipcode_data)} zip codes")
+    print("\nNOTE: This is a sample dataset for demonstration.")
+    print("For production use, replace with the complete USPS zip code database.")
+    print("You can download complete data from sources like:")
+    print("- https://www.unitedstateszipcodes.org/")
+    print("- https://simplemaps.com/data/us-zips")
+    print("- USPS official database")
+
+if __name__ == "__main__":
+    main()

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "US Zip Code Finder",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Smart zip code search with auto-complete. Search by zip code or city/state - no buttons needed! Complete database with all 42,366 US zip codes.",
   "action": {
     "default_popup": "popup.html",

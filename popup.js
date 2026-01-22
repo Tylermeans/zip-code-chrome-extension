@@ -223,8 +223,10 @@ function displayResults(results) {
     resultItem.className = 'result-item';
 
     resultItem.innerHTML = `
-      <div class="result-zip">${result.zip}</div>
-      <div class="result-city">${result.city}</div>
+      <div class="result-header">
+        <div class="result-zip">${result.zip}</div>
+        <div class="result-city">${result.city}</div>
+      </div>
       <div class="result-state">${result.state} (${result.state_abbr})</div>
       ${result.county ? `<div class="result-county">${result.county} County</div>` : ''}
     `;

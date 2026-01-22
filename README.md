@@ -183,6 +183,16 @@ For issues, questions, or suggestions, please open an issue on GitHub.
 
 ## Changelog
 
+### Version 2.0.2 (Compact Layout)
+- Fixed overflow issue that was cutting off result text
+- Redesigned result cards with inline layout (zip code and city on same line)
+- Reduced padding from 12px to 10px for more compact display
+- Reduced gap between results from 8px to 6px
+- Increased results area from 340px to 360px
+- Shows approximately 9-10 results vs 7-8 previously
+- Better z-index layering for hover effects
+- City names now truncate with ellipsis if too long
+
 ### Version 2.0.1 (UX Fixes)
 - Fixed text rendering issues with gradient colors (improved readability)
 - Reduced font sizes for more compact display while maintaining ADA compliance

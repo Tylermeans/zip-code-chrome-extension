@@ -4,10 +4,12 @@ A fast and easy-to-use Chrome extension for searching US zip codes. Search by ci
 
 ## Features
 
-- **Bidirectional Search**: Search by city/state to find zip codes, or by zip code to find cities
+- **Smart Auto-Search**: Just start typing - searches automatically as you type (no button needed!)
+- **Intelligent Detection**: Automatically detects if you're searching by zip code, city/state, or partial matches
+- **Click to Copy**: Click any result to copy the zip code to your clipboard
 - **Fast & Offline**: All data is stored locally for instant results without internet connection
-- **Clean Interface**: Simple, intuitive UI with tabbed navigation
-- **Comprehensive Data**: Includes city, state, county, and zip code information
+- **Beautiful Animations**: US map outline animation while searching, smooth result transitions
+- **Comprehensive Data**: Complete database with 42,366 zip codes, including city, state, and county
 - **No Permissions Required**: Works entirely offline with no data collection
 
 ## Installation
@@ -23,22 +25,27 @@ A fast and easy-to-use Chrome extension for searching US zip codes. Search by ci
 
 ## Usage
 
-### Search by City and State
-
-1. Click the extension icon in your Chrome toolbar
-2. Make sure you're on the "City → Zip" tab
-3. Enter a city name (e.g., "New York")
-4. Enter a state name or abbreviation (e.g., "NY" or "New York")
-5. Click "Search" or press Enter
-6. View all matching zip codes with their details
+The extension features a smart, unified search field that automatically detects what you're searching for:
 
 ### Search by Zip Code
+- Type a 5-digit zip code (e.g., `10001`)
+- Results appear automatically - shows the city, state, and county
 
-1. Click the extension icon in your Chrome toolbar
-2. Switch to the "Zip → City" tab
-3. Enter a 5-digit zip code (e.g., "10001")
-4. Click "Search" or press Enter
-5. View the city, state, and county for that zip code
+### Search by City and State
+- Type city, state format (e.g., `New York, NY` or `Los Angeles, CA`)
+- Results show all zip codes for that city
+
+### Partial Searches
+- Type partial zip codes (e.g., `100`) - shows all zips starting with those digits
+- Type partial city names (e.g., `San`) - shows all cities starting with that text
+- Partial results are limited to 50 entries for better performance
+
+### Quick Copy
+- Click any result to instantly copy the zip code to your clipboard
+- Visual feedback confirms the copy action
+
+### Keyboard Shortcuts
+- Press `ESC` to clear your search and start over
 
 ## Data Source
 
@@ -175,6 +182,29 @@ MIT License - Feel free to use and modify as needed.
 For issues, questions, or suggestions, please open an issue on GitHub.
 
 ## Changelog
+
+### Version 2.0.1 (UX Fixes)
+- Fixed text rendering issues with gradient colors (improved readability)
+- Reduced font sizes for more compact display while maintaining ADA compliance
+  - Zip codes: 18px (down from 22px)
+  - City names: 15px (down from 17px)
+  - State names: 13px (down from 14px)
+  - County: 12px (ADA minimum)
+- Reduced padding and spacing to show more results on screen
+- Increased results area height to 340px
+- All text now uses solid colors for better browser compatibility
+
+### Version 2.0.0 (Major UI/UX Redesign)
+- Complete redesign with smart unified search interface
+- Auto-search as you type (300ms debounce, no button needed)
+- Intelligent search detection (zip, city/state, partial matches)
+- Beautiful US map outline loading animation
+- Click-to-copy functionality with visual feedback
+- Removed tabbed interface in favor of single smart search
+- Staggered result animations
+- Enhanced empty and error states
+- ESC key to clear search
+- Results limited to 50 for partial searches (performance)
 
 ### Version 1.1.0 (Complete Database Update)
 - Integrated complete US zip code database (42,366 zip codes)

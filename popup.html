@@ -10,64 +10,83 @@
   <div class="container">
     <header>
       <h1>US Zip Code Finder</h1>
-      <p class="subtitle">Search 41,000+ zip codes</p>
+      <p class="subtitle">Search 42,366 zip codes</p>
     </header>
 
     <div class="search-section">
-      <div class="tabs">
-        <button class="tab-button active" data-tab="city-to-zip">City → Zip</button>
-        <button class="tab-button" data-tab="zip-to-city">Zip → City</button>
-      </div>
-
-      <!-- City to Zip Search -->
-      <div class="tab-content active" id="city-to-zip">
-        <div class="search-box">
-          <input
-            type="text"
-            id="city-input"
-            placeholder="Enter city name (e.g., New York)"
-            autocomplete="off"
-          >
-          <input
-            type="text"
-            id="state-input"
-            placeholder="Enter state (e.g., NY or New York)"
-            autocomplete="off"
-          >
-          <button id="city-search-btn" class="search-btn">Search</button>
-        </div>
-      </div>
-
-      <!-- Zip to City Search -->
-      <div class="tab-content" id="zip-to-city">
-        <div class="search-box">
-          <input
-            type="text"
-            id="zip-input"
-            placeholder="Enter zip code (e.g., 10001)"
-            maxlength="5"
-            autocomplete="off"
-          >
-          <button id="zip-search-btn" class="search-btn">Search</button>
+      <div class="search-box">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Enter zip code or city, state (e.g., 10001 or New York, NY)"
+          autocomplete="off"
+          autofocus
+        >
+        <div class="search-hint">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 0C3.13 0 0 3.13 0 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="currentColor"/>
+            <path d="M6.5 3.5h1v4h-1z" fill="currentColor"/>
+            <circle cx="7" cy="9.5" r="0.5" fill="currentColor"/>
+          </svg>
+          <span id="hint-text">Type to search...</span>
         </div>
       </div>
     </div>
 
     <div id="results-container">
       <div id="loading" class="hidden">
-        <div class="loader"></div>
+        <svg class="us-map-loader" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+          <path class="us-outline" d="M 150 300 L 200 280 L 250 285 L 300 270 L 350 275 L 400 260 L 450 265 L 500 250 L 550 255 L 600 245 L 650 250 L 700 240 L 750 245 L 800 235 L 850 240 L 850 280 L 845 320 L 840 360 L 835 400 L 825 440 L 815 470 L 805 490 L 790 505 L 770 515 L 745 520 L 715 520 L 685 515 L 655 510 L 625 505 L 595 500 L 565 495 L 535 490 L 505 485 L 475 482 L 445 480 L 415 478 L 385 477 L 355 476 L 325 475 L 295 474 L 265 474 L 235 475 L 205 477 L 180 482 L 160 490 L 145 505 L 135 525 L 130 545 L 128 565 L 127 580 L 135 560 L 145 540 L 155 520 L 165 500 L 175 480 L 185 460 L 195 440 L 205 420 L 215 400 L 225 380 L 235 360 L 245 340 L 250 320 L 150 300 Z M 720 180 L 750 170 L 780 175 L 800 185 L 810 200 L 815 220 L 810 235 L 795 240 L 775 235 L 755 225 L 740 210 L 730 195 L 720 180 Z M 200 150 L 230 140 L 260 145 L 280 155 L 290 170 L 295 190 L 290 205 L 275 215 L 255 215 L 235 205 L 220 190 L 210 170 L 200 150 Z"
+                fill="none"
+                stroke="url(#gradient)"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
         <p>Searching...</p>
       </div>
 
       <div id="results"></div>
 
       <div id="no-results" class="hidden">
-        <p>No results found. Please try again.</p>
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30" stroke="#ddd" stroke-width="2"/>
+          <path d="M 20 28 Q 22 26 24 28" stroke="#999" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M 40 28 Q 42 26 44 28" stroke="#999" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M 22 44 Q 32 38 42 44" stroke="#999" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+        <p>No results found</p>
+        <p class="no-results-hint">Try searching by zip code (e.g., 10001) or city, state (e.g., New York, NY)</p>
+      </div>
+
+      <div id="initial-state">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" stroke="url(#headerGradient)" stroke-width="2"/>
+          <path d="M 40 15 C 30 15 22 23 22 33 C 22 45 40 55 40 55 C 40 55 58 45 58 33 C 58 23 50 15 40 15 Z"
+                fill="url(#headerGradient)" opacity="0.2"/>
+          <path d="M 40 15 C 30 15 22 23 22 33 C 22 45 40 55 40 55 C 40 55 58 45 58 33 C 58 23 50 15 40 15 Z"
+                stroke="url(#headerGradient)" stroke-width="2" fill="none"/>
+          <circle cx="40" cy="32" r="6" fill="white"/>
+          <defs>
+            <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <p class="initial-text">Start typing to search</p>
+        <p class="initial-hint">Search by zip code or city, state</p>
       </div>
     </div>
 
     <footer>
-      <p class="info-text">Data includes all US zip codes</p>
+      <p class="info-text">42,366 US zip codes • Offline • Open source</p>
     </footer>
   </div>
 

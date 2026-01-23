@@ -198,29 +198,18 @@ header h1 {
 }
 
 .us-map-loader {
-  width: 160px;
-  height: 100px;
+  width: 180px;
+  height: 120px;
   margin-bottom: 20px;
+  animation: bounce 1.2s ease-in-out infinite;
 }
 
-.us-outline {
-  stroke-dasharray: 5000;
-  stroke-dashoffset: 5000;
-  animation: drawMap 2s ease-in-out forwards infinite;
-}
-
-@keyframes drawMap {
-  0% {
-    stroke-dashoffset: 5000;
-    opacity: 0.3;
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
   50% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: -5000;
-    opacity: 0.3;
+    transform: translateY(-12px);
   }
 }
 
